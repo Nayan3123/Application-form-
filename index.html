@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Made Easy - Student Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .mandatory {
+            color: red;
+        }
+        #formPreview {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .error {
+            border-color: #e74c3c;
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Law Made Easy - Student Application Form</h1>
+    <form id="studentForm">
+        <!-- College Name -->
+        <label for="college_name">College Name: <span class="mandatory">*</span></label>
+        <input type="text" id="college_name" name="college_name" required>
+
+        <!-- University Name -->
+        <label for="university_name">University Name: <span class="mandatory">*</span></label>
+        <input type="text" id="university_name" name="university_name" required>
+
+        <!-- Name of the Student -->
+        <label for="student_name">Name of the Student: <span class="mandatory">*</span></label>
+        <input type="text" id="student_name" name="student_name" required>
+
+        <!-- Date of Birth -->
+        <label for="dob">Date of Birth: <span class="mandatory">*</span></label>
+        <input type="date" id="dob" name="dob" required>
+
+        <!-- Semester -->
+        <label for="semester">Semester: <span class="mandatory">*</span></label>
+        <select id="semester" name="semester" required>
+            <option value="">Select Semester</option>
+            <option value="semester_I">Semester I</option>
+            <option value="semester_II">Semester II</option>
+            <option value="semester_III">Semester III</option>
+            <!-- Add more semesters if needed -->
+        </select>
+
+        <!-- Name of the Guardian -->
+        <label for="guardian_name">Name of the Guardian: <span class="mandatory">*</span></label>
+        <input type="text" id="guardian_name" name="guardian_name" required>
+
+        <!-- Address -->
+        <label for="address">Address: <span class="mandatory">*</span></label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+
+        <!-- WhatsApp Number -->
+        <label for="whatsapp_number">WhatsApp Number: <span class="mandatory">*</span></label>
+        <input type="tel" id="whatsapp_number" name="whatsapp_number" required>
+
+        <!-- Guardian's Phone Number -->
+        <label for="guardian_phone">Guardian's Phone Number: <span class="mandatory">*</span></label>
+        <input type="tel" id="guardian_phone" name="guardian_phone" required>
+
+        <!-- Occupation of the Guardian -->
+        <label for="guardian_occupation">Occupation of the Guardian: <span class="mandatory">*</span></label>
+        <input type="text" id="guardian_occupation" name="guardian_occupation" required>
+
+        <!-- Total Marks in Secondary Examination -->
+        <label for="marks_secondary">Total Marks in Secondary Examination (Out of 500): <span class="mandatory">*</span></label>
+        <input type="number" id="marks_secondary" name="marks_secondary" required>
+
+        <!-- Secondary School Name -->
+        <label for="secondary_school">Secondary School Name: <span class="mandatory">*</span></label>
+        <input type="text" id="secondary_school" name="secondary_school" required>
+
+        <!-- Preview and Print -->
+        <input type="button" value="Preview Form" onclick="previewForm()">
+        <input type="submit" value="Submit Form">
+    </form>
+
+    <!-- Form Preview Section -->
+    <div id="formPreview">
+        <h3>Form Preview</h3>
+    </div>
+
+    <!-- Print Button -->
+    <input type="button" value="Print Form" onclick="printForm()" style="display:none;" id="printButton">
+</div>
+
+<script>
+    // Form preview function
+    function previewForm() {
+        const previewSection = document.getElementById('formPreview');
+        previewSection.innerHTML = '<h3>Form Preview</h3>';  // Clear previous preview
+
+        const formData = new FormData(document.getElementById('studentForm'));
+        
+        formData.forEach((value, key) => {
+            const para = document.createElement('p');
+            para.textContent = `${key}: ${value}`;
+            previewSection.appendChild(para);
+        });
+
+        // Show the preview section
+        previewSection.style.display = 'block';
+        document.getElementById('printButton').style.display = 'block';
+    }
+
+    // Print form function
+    function printForm() {
+        const printContent = document.getElementById('formPreview').innerHTML;
+        const originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+
+    // Prevent form submission for demo and display print button
+    document.getElementById('studentForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission for demo purposes
+        previewForm(); // Show preview
+        alert("Form has been submitted successfully!"); // Simulate form submission message
+    });
+</script>
+
+</body>
+</html>
